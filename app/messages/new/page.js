@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 
 import { addMessage } from "@/lib/messages";
+import { revalidatePath } from "next/cache";
 
 const NewMessagePage = () => {
   async function createMessage(formData) {
@@ -8,6 +9,7 @@ const NewMessagePage = () => {
 
     const message = formData.get("message");
     addMessage(message);
+    revalidatePath("/", "layout");
     redirect("/messages");
   }
 
